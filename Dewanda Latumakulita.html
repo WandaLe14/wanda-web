@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Kreatif - [Nama Anda]</title>
+
+    <script src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KIT_ID.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* Variabel Warna dan Font */
+        :root {
+            --primary-color: #2c3e50; /* Biru tua elegan */
+            --secondary-color: #3498db; /* Biru cerah */
+            --accent-color: #e67e22; /* Oranye hangat */
+            --text-dark: #333;
+            --text-light: #f8f8f8;
+            --bg-light: #ecf0f1; /* Abu-abu terang */
+            --bg-dark: #2c3e50;
+            --border-radius: 6px;
+            --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.4s;
+
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Roboto Mono', monospace;
+        }
+
+        /* Reset CSS */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.8;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth; /* Smooth scroll default */
+        }
+
+        /* Header / Hero Section dengan Paralaks */
+        .hero-section {
+            height: 100vh; /* Mengambil seluruh tinggi viewport */
+            background-image: url('https://via.placeholder.com/1920x1080/2c3e50/ffffff?text=Latar+Belakang+Profil+Anda'); /* Ganti dengan gambar Anda */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Efek Paralaks */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-light);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            position: relative; /* Untuk overlay */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2; /* Pastikan konten di atas overlay */
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-pic-hero {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .profile-pic-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-family: var(--font-body);
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* Navigasi Utama */
+        nav {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: sticky; /* Navigasi sticky */
+            top: 0;
+            z-index: 1000;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Agar responsif */
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.2s ease;
+            border-radius: var(--border-radius);
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-color);
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            transition: width var(--transition-speed) ease-out;
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+        nav ul li a:hover {
+            transform: translateY(-2px);
+            color: var(--accent-color);
+        }
+
+        /* Konten Utama */
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Gaya Umum untuk Setiap Bagian (Section) */
+        section {
+            background-color: #fff;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0; /* Untuk animasi fade-in */
+            transform: translateY(30px); /* Untuk animasi fade-in */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Judul H2 di Setiap Bagian */
+        section h2 {
+            font-family: var(--font-heading);
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        section p {
+            font-family: var(--font-body);
+            margin-bottom: 15px;
+        }
+
+        /* Profil / Kontak (jika ingin menonjolkan bagian ini) */
+        .profile-card, .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .profile-detail, .contact-item {
+            background-color: var(--bg-light);
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            min-width: 200px;
+            flex: 1 1 auto; /* Fleksibel untuk responsivitas */
+        }
+
+        .profile-detail i, .contact-item i {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-detail h3, .contact-item h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .profile-detail p, .contact-item p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Hobi dalam Kartu */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .hobby-card {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-8px);
+            background-color: #f0f4f5;
+        }
+
+        .hobby-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .hobby-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .hobby-card p {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* Pendidikan dalam List Modern */
+        .education-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .education-item {
+            background-color: var(--bg-light);
+            padding: 25px;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .education-item h3 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .education-item .degree {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .education-item .years {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .education-item p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 0;
+            color: #555;
+        }
+
+        /* Keterampilan dalam Tag Kategori */
+        .skills-category {
+            margin-bottom: 25px;
+        }
+
+        .skills-category h3 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tags span {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .skill-tags span:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsivitas */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            .profile-pic-hero {
+                width: 150px;
+                height: 150px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            nav ul li a {
+                font-size: 1rem;
+            }
+            main {
+                margin: 30px auto;
+                padding: 0 15px;
+            }
+            section {
+                padding: 30px;
+            }
+            section h2 {
+                font-size: 2rem;
+            }
+            .hobbies-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 90%;
+                margin-left: 10%;
+                padding: 15px;
+            }
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) {
+                left: 0;
+                text-align: left;
+            }
+            .timeline-item::after {
+                left: 13px !important;
+                top: 25px; /* Sesuaikan posisi titik */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .profile-pic-hero {
+                width: 120px;
+                height: 120px;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            nav ul li {
+                margin: 8px 0;
+            }
+            section {
+                padding: 20px;
+            }
+            section h2 {
+                font-size: 1.8rem;
+            }
+            .contact-info, .profile-card {
+                flex-direction: column;
+            }
+            .skill-tags {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="profile-pic-hero">
+                <img src="C:\Users\ZYREX\Pictures\Saved Pictures\WhatsApp Image 2025-05-25 at 23.44.18.jpeg" alt="Foto Profil Anda">
+            </div>
+            <h1>Halo, Saya Dewanda Latumakulita</h1>
+            <p>SELAMAT DATANG DI PROFILE SAYA !</p>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#about" class="active">Tentang Diri Saya</a></li>
+            <li><a href="#skills">Keterampilan</a></li>
+            <li><a href="#education">Pendidikan</a></li>
+            <li><a href="#hobbies">Hobi</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about" class="fade-in">
+            <h2>Tentang Saya</h2>
+            <p>Perkenalan Diri
+
+Perkenalkan, nama saya Dewanda Latumakulita. Saya lahir di Taniwel pada tanggal 14 Desember 2004. Saat ini saya berusia 21 tahun dan berasal dari Niwelehu, Kecamatan Taniwel.
+
+Saya sedang menempuh pendidikan di Universitas Kristen Indonesia Maluku (UKIM), pada Fakultas Ilmu Komputer, Program Studi Informatika, dan saat ini saya berada di semester 4. Selama masa studi, saya tinggal di Kosan OSM.</p>
+        </section>
+
+        <section id="skills" class="fade-in">
+            <h2>Keterampilan</h2>
+            <div class="skills-category">
+                <h3>Bahasa Pemrograman</h3>
+                <div class="skill-tags">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript (ES6+)</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <h3>Alat & Platform</h3>
+                <div class="skill-tags">
+                    <span>Git & GitHub</span>
+                    <span>VS Code</span>
+                    <span>Figma</span>
+                    <span>Adobe XD</span>
+                    <span>Photoshop</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="fade-in">
+            <h2>Pendidikan</h2>
+            <div class="education-list">
+                <div class="education-item">
+                    <h3>Universitas Kristen Indonesia Maluku</h3>
+                    <span class="degree">Fakultas Ilmu Komputer/Program Studi Teknik Informatika</span>
+                </div>
+                <div class="education-item">
+                    <h3>SMA Negeri 4 Seram Bagian Barat</h3>
+                    <span class="degree">Jurusan : IPA / Ilmu Pengetahuan Alam]</span>
+                </div>
+				<div class="education-item">
+                    <h3>SMP Negeri 1 Taniwel</h3>
+                </div>
+				<div class="education-item">
+                    <h3>SD Kristen Taniwel</h3>
+                </div>
+                </div>
+        </section>
+
+        <section id="hobbies" class="fade-in">
+            <h2>Hobi & Minat</h2>
+            <div class="hobbies-grid">
+                <div class="hobby-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Memasak</h3>
+                    <p>Suka untuk memasak makanan Rumahan, membuat Kue dan Dissert.</p>
+                </div>
+                <div class="hobby-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Menonton Film/Seri/Tiktok</h3>
+                    <p>Menyelami cerita dan sinematografi dari berbagai genre/content creator.</p>
+                </div>
+                </div>
+        </section>
+
+        <section id="contact" class="fade-in">
+            <h2>Hubungi Saya</h2>
+            <p>Saya selalu terbuka untuk berdiskusi tentang kolaborasi, atau sekadar bertukar pikiran. Jangan ragu untuk menghubungi saya melalui:</p>
+            <div class="profile-card contact-info">
+                <a href="https://www.facebook.com/share/19WuBJ2zaj/?mibextid=wwXIfr" class="contact-item" target="_blank">
+                    <i class="fas fa-facebook"></i>
+                    <h3>Facebook</h3>
+                    <p>Lessy Wanda Latumakulita</p>
+                </a>
+                <a href="https://www.instagram.com/wandale14?igsh=MTVrZjZrMzk4ZnR6cw==" class="contact-item" target="_blank">
+                    <i class="fab fa-innstagram"></i>
+                    <h3>Instagram</h3>
+                    <p>wandale14</p>
+                </a>
+                <a href="https://www.tiktok.com/@kosonglima2?_t=ZS-8xZv2yto3df&_r=1" class="contact-item" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                    <h3>TikTok</h3>
+                    <p>kosonglima2</p>
+                </a>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SALAM DEWANDA</p>
+    </footer>
+	
+	<div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="profile-pic-hero">
+                <img src="C:\Users\ZYREX\Pictures\Saved Pictures\WhatsApp Image 2025-05-25 at 23.44.18.jpeg" alt="Foto Profil Anda">
+            </div>
+            <h1>TERIMA KASIH SEMUANYA</h1>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling untuk navigasi
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Mencegah perilaku default tautan (loncat langsung)
+
+                    const targetId = this.getAttribute('href').substring(1); // Ambil ID bagian dari atribut href
+                    const targetElement = document.getElementById(targetId); // Dapatkan elemen bagian target
+
+                    if (targetElement) {
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        // Gulir ke posisi target dengan efek mulus, menyesuaikan dengan tinggi navigasi
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Animasi fade-in saat bagian masuk ke viewport menggunakan Intersection Observer
+            const sections = document.querySelectorAll('main section'); // Dapatkan semua elemen <section> di dalam main
+            const observerOptions = {
+                root: null, // Mengamati di dalam viewport utama dokumen
+                rootMargin: '0px', // Tidak ada margin tambahan
+                threshold: 0.1 // Ketika 10% dari bagian terlihat, picu callback
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { // Jika bagian sedang terlihat di viewport
+                        entry.target.classList.add('fade-in'); // Tambahkan kelas 'fade-in'
+                        // observer.unobserve(entry.target); // Opsional: Hentikan observasi setelah animasi pertama kali
+                    }
+                });
+            }, observerOptions);
+
+            // Mulai observasi untuk setiap bagian
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Atur tautan navigasi 'active' berdasarkan posisi scroll
+            function setActiveNavLinkOnScroll() {
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const scrollPosition = window.scrollY + navHeight + 10; // Tambahkan sedikit offset untuk akurasi
+
+                document.querySelectorAll('nav a').forEach(anchor => {
+                    const targetId = anchor.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // Jika posisi scroll berada di antara bagian atas dan bawah section
+                        if (scrollPosition >= targetElement.offsetTop && scrollPosition < targetElement.offsetTop + targetElement.offsetHeight) {
+                            document.querySelectorAll('nav a').forEach(navLink => navLink.classList.remove('active'));
+                            anchor.classList.add('active');
+                        }
+                    }
+                });
+
+                // Pastikan "Tentang" aktif jika di paling atas
+                if (window.scrollY < document.getElementById('about').offsetTop - navHeight) {
+                    document.querySelectorAll('nav a').forEach(navLink => navLink.classList.remove('active'));
+                    document.querySelector('nav a[href="#about"]').classList.add('active');
+                }
+            }
+
+            // Panggil fungsi setActiveNavLinkOnScroll saat halaman dimuat dan saat menggulir
+            window.addEventListener('load', setActiveNavLinkOnScroll);
+            window.addEventListener('scroll', setActiveNavLinkOnScroll);
+
+            // Panggilan awal untuk memastikan tautan navigasi yang benar aktif saat halaman pertama kali dimuat
+            setActiveNavLinkOnScroll();
+        });
+    </script>
+</body>
+</html>
